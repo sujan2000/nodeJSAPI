@@ -18,7 +18,7 @@ const __dirname = import.meta.dirname
 // console.log(pathToResource)
 
 const server = http.createServer(async (req, res) => {
-    if (req.url === '/api') {
+    if (req.url === '/') {
         if (req.method === 'GET') {
             return await handleGet(res)
         }
