@@ -1,24 +1,25 @@
 import { getData } from '../utils/getData.js'
-import { sendResponse } from '../utils/sendResponse.js'
-import { parseJSONBody } from '../utils/parseJSONBody.js'
 import { addNewSighting } from '../utils/addNewSighting.js'
 import { sanitizeInput } from '../utils/sanitizeInput.js'
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const data = await getData()
-    const content = JSON.stringify(data)
-    sendResponse(res, 200, 'application/json', content)
+    try {
+      const data = await getData()
+      res.status(200).json(data)
+    } catch (err) {
+      res.status(500).json({ error: err.message })
+    }
   } else if (req.method === 'POST') {
     try {
-      const parsedBody = await parseJSONBody(req)
+      const parsedBody = req.body
       const sanitizedBody = sanitizeInput(parsedBody)
       await addNewSighting(sanitizedBody)
-      sendResponse(res, 201, 'application/json', JSON.stringify(sanitizedBody))
+      res.status(201).json(sanitizedBody)
     } catch (err) {
-      sendResponse(res, 400, 'application/json', JSON.stringify({error: err.message}))
+      res.status(400).json({ error: err.message })
     }
   } else {
-    sendResponse(res, 405, 'application/json', JSON.stringify({error: 'Method not allowed'}))
+    res.status(405).json({ error: 'Method not allowed' })
   }
 }
