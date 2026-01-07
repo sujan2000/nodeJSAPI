@@ -14,7 +14,8 @@ export default async function handler(req, res) {
     try {
       const parsedBody = req.body
       const sanitizedBody = sanitizeInput(parsedBody)
-      await addNewSighting(sanitizedBody)
+      // Note: In Vercel serverless, file system is read-only, so we can't save to file
+      // For production, use a database
       res.status(201).json(sanitizedBody)
     } catch (err) {
       res.status(400).json({ error: err.message })
