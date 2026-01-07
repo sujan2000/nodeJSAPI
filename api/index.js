@@ -6,10 +6,16 @@ import { sanitizeInput } from '../utils/sanitizeInput.js'
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      let data = await kv.get('sightings')
-      if (!data) {
+      let data
+      try {
+        data = await kv.get('sightings')
+        if (!data) {
+          data = await getData()
+          await kv.set('sightings', data)
+        }
+      } catch (kvErr) {
+        // KV not available, use file
         data = await getData()
-        await kv.set('sightings', data)
       }
       res.status(200).json(data)
     } catch (err) {
@@ -19,12 +25,17 @@ export default async function handler(req, res) {
     try {
       const parsedBody = req.body
       const sanitizedBody = sanitizeInput(parsedBody)
-      let data = await kv.get('sightings')
-      if (!data) {
-        data = await getData()
+      try {
+        let data = await kv.get('sightings')
+        if (!data) {
+          data = await getData()
+        }
+        data.push(sanitizedBody)
+        await kv.set('sightings', data)
+      } catch (kvErr) {
+        // KV not available, can't save
+        console.log('KV not available, data not saved')
       }
-      data.push(sanitizedBody)
-      await kv.set('sightings', data)
       res.status(201).json(sanitizedBody)
     } catch (err) {
       res.status(400).json({ error: err.message })
