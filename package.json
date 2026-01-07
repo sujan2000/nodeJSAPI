@@ -2,13 +2,29 @@
   "name": "from-the-other-side",
   "version": "1.0.0",
   "description": "A platform for sharing ghostly encounters",
-  "main": "server.js",
+  "keywords": [
+    "A",
+    "platform",
+    "for",
+    "sharing",
+    "ghostly",
+    "encounters"
+  ],
+  "homepage": "https://github.com/sujan2000/nodeJSAPI#readme",
+  "bugs": {
+    "url": "https://github.com/sujan2000/nodeJSAPI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sujan2000/nodeJSAPI.git"
+  },
+  "license": "ISC",
+  "author": "Sujan",
   "type": "module",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "author": "Tom Chant",
-  "license": "ISC",
   "dependencies": {
     "sanitize-html": "^2.16.0"
   }
