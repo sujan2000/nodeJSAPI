@@ -1,14 +1,14 @@
 import http from 'node:http'
-// import path from 'node:path'
+import path from 'node:path'
 // import { dirname } from 'node:path'
 // import { fileURLToPath } from 'node:url'
-import { serveStatic } from './utils/serveStatic.js'
+import { serveStatic } from '../../utils/serveStatic.js'
 import { handleGet } from '../../handlers/routeHandlers.js'
 import { handlePost } from '../../handlers/routeHandlers.js'
 
 const PORT = 8000
 
-const __dirname = import.meta.dirname
+const __dirname = path.join(import.meta.dirname, '..', '..')
 
 // const __filename = fileURLToPath(import.meta.url)
 // console.log(__dirname)
@@ -18,7 +18,7 @@ const __dirname = import.meta.dirname
 // console.log(pathToResource)
 
 const server = http.createServer(async (req, res) => {
-    if (req.url === '/') {
+    if (req.url === '/api') {
         if (req.method === 'GET') {
             return await handleGet(res)
         }
