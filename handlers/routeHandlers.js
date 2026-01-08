@@ -17,6 +17,7 @@ export async function handlePost(req, res) {
     const parsedBody = await parseJSONBody(req)
     const sanitizedBody = sanitizeInput(parsedBody)
     await addNewSighting(sanitizedBody)
+    sightingEvents.emit('sighting-added', sanitizedBody)
     sendResponse(res, 201, 'application/json', JSON.stringify(sanitizedBody))
     sightingEvents.emit('sighting-added')
   } catch (err) {
