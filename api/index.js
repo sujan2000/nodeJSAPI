@@ -30,6 +30,7 @@ export default async function handler(req, res) {
         if (!data) {
           data = await getData()
         }
+        await addNewSighting(sanitizedBody)
         data.push(sanitizedBody)
         await kv.set('sightings', data)
       } catch (kvErr) {
