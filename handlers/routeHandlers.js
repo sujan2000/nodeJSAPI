@@ -19,6 +19,7 @@ export async function handlePost(req, res) {
     await addNewSighting(sanitizedBody)
     sightingEvents.emit('sighting-added', sanitizedBody)
     sendResponse(res, 201, 'application/json', JSON.stringify(sanitizedBody))
+    sightingEvents.emit('sighting-added')
   } catch (err) {
     sendResponse(res, 400, 'application/json', JSON.stringify({ error: err }))
   }
