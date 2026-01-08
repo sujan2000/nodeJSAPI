@@ -42,7 +42,9 @@ body::before {
 /*            TYPOGRAPHY          */
 /* ============================== */
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: "Frijole", serif;
 }
 
@@ -71,7 +73,8 @@ h1 {
     text-align: center;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: white;
     letter-spacing: .13rem;
 }
@@ -104,17 +107,20 @@ p {
     margin: 0 0 1em 0;
 }
 
-.site-title:hover, .site-title-page:hover {
+.site-title:hover,
+.site-title-page:hover {
     text-decoration: none;
     color: deepskyblue;
 }
 
-.site-title:focus, .site-title-page:focus {
+.site-title:focus,
+.site-title-page:focus {
     background-color: white;
     color: #222;
 }
 
-.site-title:active, .site-title-page:active {
+.site-title:active,
+.site-title-page:active {
     color: deepskyblue;
 }
 
@@ -134,7 +140,7 @@ p {
     max-width: 500px;
 }
 
-footer p{
+footer p {
     font-size: 0.9rem;
     text-align: center;
 }
@@ -244,6 +250,21 @@ main.form-container {
     margin: 2em 0;
 }
 
+.live-container {
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+    margin-top: 2em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* min-height: 100px; */
+}
+
 /* ============================== */
 /*        FORM STYLING            */
 /* ============================== */
@@ -272,23 +293,23 @@ form {
 @media (max-width: 650px) {
 
     main.form-container {
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-}
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+    }
 
     form {
         grid-template-areas:
-        "lt"
-        "it"
-        "lm"
-        "im"
-        "ll"
-        "il"
-        "ld"
-        "id"
-        "sb"
-        "fm";   
+            "lt"
+            "it"
+            "lm"
+            "im"
+            "ll"
+            "il"
+            "ld"
+            "id"
+            "sb"
+            "fm";
     }
 }
 
@@ -345,7 +366,9 @@ label {
 }
 
 
-input::placeholder, textarea::placeholder, input[type="datetime-local"] {
+input::placeholder,
+textarea::placeholder,
+input[type="datetime-local"] {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     color: #666;
@@ -357,12 +380,15 @@ input {
 }
 
 
-textarea, input {
+textarea,
+input {
     border-radius: 5px;
 }
 
 
-input, textarea, .submit-btn {
+input,
+textarea,
+.submit-btn {
     width: 100%;
     padding: 12px;
     margin-top: 5px;
