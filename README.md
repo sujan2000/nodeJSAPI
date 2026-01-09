@@ -1,15 +1,15 @@
 # 👻 GhostFeed API
 
-GhostFeed is a **Node.js REST API** for a **signing (authentication) app** that also provides a **news feed of ghost stories**.  
-Users can sign up, sign in, and access curated or user-submitted ghost stories through secure API endpoints.
+SightingStoires is a **Node.js REST API** for a **node learning app** that also provides a **news feed of ghost stories**.  
+Users can upload, access curated or user-submitted ghost stories through secure API endpoints.
 
 ---
 
 ## ✨ Features
 
-- 🔐 User Authentication (Sign Up / Sign In)
+- 🔐 User can add or delete stories
 - 📰 Ghost Stories News Feed
-- 🧾 Secure API using JWT authentication
+- 🧾 Secure API using with Sanitized functionality
 - 🗄️ Database-backed storage
 - ⚡ Fast and lightweight Node.js backend
 - 📦 Easy local setup
@@ -20,32 +20,24 @@ Users can sign up, sign in, and access curated or user-submitted ghost stories t
 
 - **Node.js**
 - **Express.js**
-- **PostgreSQL / SQLite (via PGlite or similar)**
-- **JWT** for authentication
-- **bcrypt** for password hashing
+- local database file
 - **dotenv** for environment variables
 
 ---
 
 ## 📁 Project Structure
 
-ghostfeed-api/
+NODEJSAPP-api/
 ├── src/
-│ ├── controllers/
-│ ├── routes/
-│ ├── middleware/
-│ ├── models/
-│ ├── db/
-│ └── app.js
+│ ├── events/
+│ ├── handlers/
+│ ├── public/
+│ ├── utils/
+│ └── index.js
 ├── .env
 ├── package.json
 ├── README.md
 └── server.js
-
-yaml
-Copy code
-
----
 
 ## 🚀 Getting Started
 
@@ -58,7 +50,7 @@ Follow these steps to run the project locally.
 Make sure you have the following installed:
 
 - **Node.js** (v18 or higher recommended)
-- **npm** or **yarn**
+- **npm**
 - **Git**
 
 Check versions:
@@ -70,8 +62,8 @@ Clone the repository
 
 bash
 Copy code
-git clone https://github.com/your-username/ghostfeed-api.git
-cd ghostfeed-api
+git clone https://github.com/sujan2000/nodeJSAPI
+cd nodeJSAPI
 Install dependencies
 
 bash
@@ -81,60 +73,40 @@ npm install
 Create a .env file in the root directory:
 
 env
-Copy code
-PORT=3000
-JWT_SECRET=your_super_secret_key
-DATABASE_URL=your_database_url
+PORT=8000
 ⚠️ Never commit .env files to version control.
 
 🗄️ Database Setup
 Run database migrations or seed scripts if available:
 
 bash
-Copy code
 npm run db:init
 (Adjust this command based on your setup.)
 
 ▶️ Running the App
 Development mode
 bash
-Copy code
 npm run dev
 Production mode
 bash
-Copy code
 npm start
 Server will run at:
 
-arduino
-Copy code
-http://localhost:3000
+http://localhost:8000
 🔑 Authentication Flow
 Sign Up
 http
-Copy code
-POST /api/auth/signup
-Sign In
-http
-Copy code
-POST /api/auth/signin
-Returns a JWT token which must be included in protected requests:
+GET /api/sightings
+POST /api/upload-sightings
 
 http
-Copy code
 Authorization: Bearer <token>
 📰 Ghost Stories Feed
 Get all ghost stories
-http
-Copy code
-GET /api/stories
-Create a new ghost story (Authenticated)
-http
-Copy code
+Create a new ghost story
 POST /api/stories
 Example Response
 json
-Copy code
 {
   "title": "The Shadow in the Hallway",
   "author": "Anonymous",
@@ -145,7 +117,6 @@ Copy code
 Run tests (if configured):
 
 bash
-Copy code
 npm test
 📌 API Status Codes
 Code	Meaning
@@ -156,12 +127,9 @@ Code	Meaning
 404	Not Found
 500	Server Error
 
-🔒 Security Notes
-Passwords are hashed using bcrypt
 
-JWT tokens expire after a configurable time
 
-Protected routes require authentication
+SanitizeInput routes 
 
 📈 Future Improvements
 🧠 AI-generated ghost stories
@@ -170,9 +138,7 @@ Protected routes require authentication
 
 🧑‍💻 Admin moderation
 
-🌐 Deployment with Docker
-
-📱 Frontend client (React / Next.js)
+📱 Frontend client (Basic html, css and javascript)
 
 🤝 Contributing
 Contributions are welcome!
@@ -189,11 +155,9 @@ Open a Pull Request
 This project is licensed under the MIT License.
 
 👤 Author
-Your Name
-GitHub: https://github.com/your-username
+Your SUJAN SINGH MEENA
+GitHub: https://github.com/sujan2000
 
 👻 Sleep tight… and don’t read the stories alone at night.
 
-yaml
-Copy code
 
