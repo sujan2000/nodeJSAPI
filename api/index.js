@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       const parsedBody = req.body
       const sanitizedBody = sanitizeInput(parsedBody)
       try {
-        let data = await kv.get('sightings')
+        let data = await kv.get('upload-sighting')
         if (!data) {
           data = await getData()
         }
