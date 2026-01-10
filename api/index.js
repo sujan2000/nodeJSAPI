@@ -3,6 +3,9 @@ import { getData } from '../utils/getData.js'
 import { addNewSighting } from '../utils/addNewSighting.js'
 import { sanitizeInput } from '../utils/sanitizeInput.js'
 import { stories } from '../data/stories.js'
+import { sightingEvents } from '../events/sightingEvents.js'
+import { parseJSONBody } from '../utils/parseJSONBody.js'
+import { sendResponse } from '../utils/sendResponse.js'
 
 
 export default async function handler(req, res) {
@@ -25,32 +28,23 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'POST') {
     try {
-      const parsedBody = req.body
+
+      const parsedBody = await parseJSONBody(req)
       const sanitizedBody = sanitizeInput(parsedBody)
-      try {
-        let data = await kv.get('upload-sighting')
-        if (!data) {
-          data = await getData()
-        }
-        await addNewSighting(sanitizedBody)
-        data.push(sanitizedBody)
-        await kv.set('sightings', data)
-      } catch (kvErr) {
-        // KV not available, can't save
-        console.log('KV not available, data not saved')
-      }
+      await addNewSighting(sanitizedBody)
+      
+      sightingEvents.emit('sighting-added', sanitizedBody)
+      sendResponse(res, 201, 'application/json', JSON.stringify(sanitizedBody))
+
       res.status(201).json(sanitizedBody)
     } catch (err) {
       res.status(400).json({ error: err.message })
     }
   } else if (req.method === 'GET') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/event-stream')
-    res.setHeader('Cache-Control', 'no-cache')
-    res.setHeader('Connection-Type', 'keep-alive')
+
     setInterval(() => {
       let randomIndex = Math.floor(Math.random() * stories.length)
-      res.write(
+      kv.set('news',
         `data: ${JSON.stringify({
           event: 'news-update',
           story: stories[randomIndex]
