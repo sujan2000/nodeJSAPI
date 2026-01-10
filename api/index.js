@@ -2,6 +2,8 @@ import { kv } from '@vercel/kv'
 import { getData } from '../utils/getData.js'
 import { addNewSighting } from '../utils/addNewSighting.js'
 import { sanitizeInput } from '../utils/sanitizeInput.js'
+import { stories } from '../data/stories.js'
+
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
@@ -41,6 +43,20 @@ export default async function handler(req, res) {
     } catch (err) {
       res.status(400).json({ error: err.message })
     }
+  } else if (req.method === 'GET') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/event-stream')
+    res.setHeader('Cache-Control', 'no-cache')
+    res.setHeader('Connection-Type', 'keep-alive')
+    setInterval(() => {
+      let randomIndex = Math.floor(Math.random() * stories.length)
+      res.write(
+        `data: ${JSON.stringify({
+          event: 'news-update',
+          story: stories[randomIndex]
+        })}\n\n`)
+
+    }, 3000)
   } else {
     res.status(405).json({ error: 'Method not allowed' })
   }
